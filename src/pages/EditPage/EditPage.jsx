@@ -1,4 +1,4 @@
-import { component } from 'react';
+import { Component } from 'react';
 import NavBar from '../../components/NavBar/NavBar'
 import MindfullForm from '../../components/Mindfull/MindfullForm';
 
