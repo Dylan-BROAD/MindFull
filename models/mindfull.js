@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const mindfullSchema = new Schema({
     title: String,
-    mindfull: String,
+    journal: String,
     goals: String,
     songName: String,
     moodRating: {

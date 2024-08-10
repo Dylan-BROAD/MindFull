@@ -1,58 +1,77 @@
-import { Component } from 'react';
-import { signUp } from '../../utilities/users-service';
+import{ Component } from 'react';
+import { Link } from 'react-router-dom';
+import userService from '../../utilitiess/users-service';
 
-export default class SignUpForm extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-    confirm: '',
-    error: ''
-  };
+class SignupForm extends Component {
 
-  handleChange = (evt) => {
-    this.setState({
-      [evt.target.name]: evt.target.value,
-      error: ''
-    });
-  };
+    state = {
+        name: '',
+        email: '',
+        password: '',
+        passwordConf: ''
+    };
 
-  handleSubmit = async (evt) => {
-    evt.preventDefault();
-    try {
-      const {name, email, password} = this.state;
-      const formData = {name, email, password};
-      // The promise returned by the signUp service
-      // method will resolve to the user object included
-      // in the payload of the JSON Web Token (JWT)
-      const user = await signUp(formData);
-      this.props.setUser(user);
-    } catch {
-      // An error occurred
-      // Probably due to a duplicate email
-      this.setState({ error: 'Sign Up Failed - Try Again' });
+    handleChange = (e) => {
+        this.props.updateMessage('');
+        this.setState({
+            // Using ES2015 Computed Property Names
+            [e.target.name]: e.target.value
+        });
     }
-  };
 
-  render() {
-    const disable = this.state.password !== this.state.confirm;
-    return (
-      <div>
-        <div className="form-container">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
-            <label>Name</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-            <label>Email</label>
-            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-            <label>Password</label>
-            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-            <label>Confirm</label>
-            <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-            <button type="submit" disabled={disable}>SIGN UP</button>
-          </form>
-        </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
-      </div>
-    );
-  }
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await userService.signup(this.state);
+            // Let <App> know a user has signed up!
+            this.props.handleSignupOrLogin();
+            // Successfully signed up 
+            this.props.history.push('/');
+        } catch (err) {
+            // Invalid user data (probably duplicate email)
+            this.props.updateMessage(err.message);
+        }
+    }
+
+    isFormInvalid() {
+        return !(this.state.name && this.state.email && this.state.password === this.state.passwordConf);
+    }
+
+    render() {
+        return (
+            <div>
+                <header className="header-footer">Sign Up</header>
+                <form className="form-horizontal" onSubmit={this.handleSubmit} >
+                    <div className="form-group">
+                        <div className="col-sm-12">
+                            <input type="text" className="form-control" placeholder="Name" value={this.state.name} name="name" onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-12">
+                            <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-12">
+                            <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-12">
+                            <input type="password" className="form-control" placeholder="Confirm Password" value={this.state.passwordConf} name="passwordConf" onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-12 text-center">
+                            <button className="btn btn-default" disabled={this.isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
+              <Link to='/'>Cancel</Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }
+
+export default SignupForm;

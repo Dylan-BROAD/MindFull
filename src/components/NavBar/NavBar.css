@@ -1,0 +1,29 @@
+.NavBar {   
+    justify-content: space-evenly;
+    height: 10px;
+    padding: 25px;
+    margin: 0px 0;
+    color: grey;
+    background-color:  #F0EAD6; 
+    font-size: 20px;
+    text-align: center;
+    }
+    
+    .NavBar-link {
+      margin: 0 10px;
+    }
+    
+    .NavBar-welcome {
+      color: grey;
+      text-align: right; 
+    }
+  
+    .notions-nav{
+      justify-content: left; 
+  
+    }
+  
+    .test {
+      background-color: black; 
+      width: 500px; 
+    }
