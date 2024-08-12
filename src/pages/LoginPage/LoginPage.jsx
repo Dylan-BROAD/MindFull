@@ -1,7 +1,8 @@
-import { componenet } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import usersService from '../../utilities/users-service';
-import '.LoginPage.css';
+import { Icon, Input } from 'semantic-ui-react'
+import userService from '../../utilities/users-service';
+import './LoginPage.css';
 
 class LoginPage extends Component {
 
@@ -9,6 +10,27 @@ class LoginPage extends Component {
         email: '',
         pw: ''
     };
+
+    handleChange = (e) => {
+        this.setState({
+            // Using ES2015 Computed Property Names
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await userService.login(this.state);
+            // Let <App> know a user has signed up!
+            this.props.handleSignupOrLogin();
+            // Successfully signed up - show 
+            this.props.history.push('/');
+        } catch (err) {
+            // Use a modal or toast in your apps instead of alert
+            alert('Invalid Credentials!');
+        }
+    }
 
     render() {
         return (

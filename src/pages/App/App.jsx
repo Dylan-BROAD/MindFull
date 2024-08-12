@@ -1,25 +1,41 @@
-import { Component } from 'react';
-import SignupForm from '../../components/SignupForm/SignupForm';
+import React from 'react';
+import userService from '../../utilities/users-service';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from '../HomePage/HomePage';
+import SignupPage from '../SignupPage/SignupPage';
+import LoginPage from '../LoginPage/LoginPage';
+import MindfullPage from '../MindfullPage/MindfullPage';
+import EditPage from '../EditPage/EditPage';
 
+class App extends React.Component {
+  state = {
+    user: null
+  };
 
-class SignupPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { message: '' }
-    }
+  handleSignupOrLogin = () => {
+    this.setState({
+      user: userService.getUser()
+    });
+  }
 
-    updateMessage = (msg) => {
-        this.setState({ message: msg });
-    }
+  handleLogout = () => {
+    userService.logout();
+    this.setState({ user: null });
+  }
 
-    render() {
-        return (
-            <div className='SignupPage'>
-                <SignupForm {...this.props} updateMessage={this.updateMessage} />
-                <p>{this.state.message}</p>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Routes>
+          <Route path="/" element={<HomePage user={this.state.user} handleLogout={this.handleLogout} />} />
+          <Route path="/signup" element={<SignupPage handleSignupOrLogin={this.handleSignupOrLogin} />} />
+          <Route path="/login" element={<LoginPage handleSignupOrLogin={this.handleSignupOrLogin} />} />
+          <Route path="/Mindfull" element={<MindfullPage user={this.state.user} handleLogout={this.handleLogout} />} />
+          <Route path="/edit" element={<EditPage location={window.location} user={this.state.user} handleLogout={this.handleLogout} />} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
-export default SignupPage;
+export default App;

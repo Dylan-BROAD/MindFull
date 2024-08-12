@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../../pages/App/App.css'
 import './NavBar.css'
-import * as userService from '../../utilities/users-service';
+
 
 const NavBar = (props) => {
   let nav = props.user ?
@@ -13,7 +13,7 @@ const NavBar = (props) => {
     </div>
     :
     <div>
-      <Link className='login-nav' to='/login' className='NavBar-link'>LOG IN</Link>
+      <Link className='login-nav' to='/login'>LOG IN</Link>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <Link to='/signup' className='NavBar-Link'>SIGN UP</Link>
     </div>;

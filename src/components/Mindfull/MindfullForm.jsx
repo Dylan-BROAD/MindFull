@@ -1,12 +1,13 @@
 import{ Component } from 'react';
 // import { Link } from 'react-router-dom'
+import { create, update } from '../../services/mindfull-api';
 import './Mindfull.css'
 
 
 class MindfullForm extends Component {
     state = {
         title: this.props.editTitle || '',
-        notion: this.props.editNotion || '',
+        journal: this.props.editJournal || '',
         goals: this.props.editGoals || '',
         songName: this.props.editSongName || '',
         moodRating: this.props.editMoodRating || 10,
@@ -47,16 +48,16 @@ class MindfullForm extends Component {
                             value={this.state.title}
                         />
                     </div>
-                    <p>{this.state.notion}</p>
+                    <p>{this.state.journal}</p>
                     <div>
                         {' '}
                         <label>Journal</label>
                         <textarea
                             className="text-box"
                             type="text"
-                            name="notion"
+                            name="journal"
                             onChange={this.handleChange}
-                            value={this.state.notion}
+                            value={this.state.journal}
                         />
                     </div>
                     <div>

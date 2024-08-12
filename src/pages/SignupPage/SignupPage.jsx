@@ -1,7 +1,7 @@
-import { Componenet } from 'react';
+import { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
 
-class SignupPage extends Componenet {
+class SignupPage extends Component {
     constructor(props) {
         super(props);
         this.state = { message: '' }
