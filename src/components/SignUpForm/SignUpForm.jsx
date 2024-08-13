@@ -37,7 +37,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
 
     return (
         <div>
-            <header className="header-footer">Sign Up</header>
+            <header className="header-footer">SignUp</header>
             <form className="form-horizontal" onSubmit={handleSubmit} >
                 <div className="form-group">
                     <div className="col-sm-12">
