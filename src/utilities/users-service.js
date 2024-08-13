@@ -27,17 +27,32 @@ function logout() {
 }
 
 function login(creds) {
-    return fetch(BASE_URL + 'login', {
-        method: 'POST',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify(creds)
+  return fetch(BASE_URL + 'login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(creds),
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+      
+        const errorData = await res.json();
+        const errorMessage = errorData.message || 'Login failed';
+        console.error('Login Error Response:', errorData); // Log the detailed error
+        throw new Error(errorMessage);
+      }
+      // Extract and return the response data
+      const data = await res.json();
+      return data;
     })
-        .then(res => {
-            // Valid login if we have a status of 2xx (res.ok)
-            if (res.ok) return res.json();
-            throw new Error('Bad Credentials!');
-        })
-        .then(({ token }) => tokenService.setToken(token));
+    .then(({ token }) => {
+      if (token) {
+        // Store the token using tokenService
+        tokenService.setToken(token);
+        return token;
+      } else {
+        throw new Error('No token received');
+      }
+    });
 }
 
 export default {

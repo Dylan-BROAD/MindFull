@@ -1,37 +1,45 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema({
-  name: {type: String, required: true},
-  email: {
-    type: String,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  }
+    name: String,
+    email: { type: String, required: true, lowercase: true, unique: true },
+    password: String,
+    // notions: [notionSchema]
 }, {
-  timestamps: true,
-  toJSON: {
-    transform: function(doc, ret) {
-      delete ret.password;
-      return ret;
-    }
-  }
+    timestamps: true
 });
 
-userSchema.pre('save', async function(next) {
-  // 'this' is the user document
-  if (!this.isModified('password')) return next();
-  // Replace the password with the computed hash
-  this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+userSchema.set('toJSON', {
+    transform: function (doc, ret) {
+        // remove the password property when serializing doc to JSON
+        delete ret.password;
+        return ret;
+    }
 });
+
+userSchema.pre('save', function (next) {
+    // 'this' will be set to the current document
+    const user = this;
+    if (!user.isModified('password')) return next();
+    // password has been changed - salt and hash it
+    bcrypt.hash(user.password, SALT_ROUNDS, function (err, hash) {
+        if (err) return next(err);
+        // replace the user provided password with the hash
+        user.password = hash;
+        next();
+    });
+});
+
+userSchema.methods.comparePassword = function (tryPassword, cb) {
+    // 'this' represents the document that you called comparePassword on
+    bcrypt.compare(tryPassword, this.password, function (err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
+};
 
 module.exports = mongoose.model('User', userSchema);

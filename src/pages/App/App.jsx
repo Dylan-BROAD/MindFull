@@ -6,36 +6,36 @@ import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import MindfullPage from '../MindfullPage/MindfullPage';
 import EditPage from '../EditPage/EditPage';
+import { useState } from 'react'
 
-class App extends React.Component {
-  state = {
-    user: null
-  };
 
-  handleSignupOrLogin = () => {
-    this.setState({
-      user: userService.getUser()
-    });
-  }
+const App = () => {
+  const [user, setUser] = useState(null)
 
-  handleLogout = () => {
-    userService.logout();
-    this.setState({ user: null });
-  }
-
-  render() {
-    return (
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage user={this.state.user} handleLogout={this.handleLogout} />} />
-          <Route path="/signup" element={<SignupPage handleSignupOrLogin={this.handleSignupOrLogin} />} />
-          <Route path="/login" element={<LoginPage handleSignupOrLogin={this.handleSignupOrLogin} />} />
-          <Route path="/Mindfull" element={<MindfullPage user={this.state.user} handleLogout={this.handleLogout} />} />
-          <Route path="/edit" element={<EditPage location={window.location} user={this.state.user} handleLogout={this.handleLogout} />} />
-        </Routes>
-      </div>
+  const handleSignupOrLogin = () => {
+    setUser(
+      userService.getUser()
     );
   }
+
+  const handleLogout = () => {
+    userService.logout();
+    setUser(null);
+  }
+
+
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<HomePage user={user} handleLogout={handleLogout} />} />
+        <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />} />
+        <Route path="/login" element={<LoginPage handleSignupOrLogin={handleSignupOrLogin} />} />
+        <Route path="/Mindfull" element={<MindfullPage user={user} handleLogout={handleLogout} />} />
+        {/* <Route path="/edit" element={<EditPage location={window.location} user={user} handleLogout={handleLogout} />} /> */}
+      </Routes>
+    </div>
+  );
+
 }
 
 export default App;

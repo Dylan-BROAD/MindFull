@@ -9,8 +9,8 @@ const mindfullSchema = new Schema({
     songName: String,
     moodRating: {
         type: Number,
-        enum: [1, 2, 3, 4, 5],
-        default: 5
+        enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        default: 10
     }
 });
 

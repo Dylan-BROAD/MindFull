@@ -9,7 +9,7 @@ const NavBar = (props) => {
       <Link className='mindfull-nav' to='/journals'>Your Journals</Link>
       <Link to='/' onClick={props.handleLogout} className='NavBar-Link'>LOG OUT</Link>
       &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <span className='NavBar-Welcome'>COME AS YOU ARE, {props.user.name}</span>
+      <span className='NavBar-Welcome'>COME AS YOU ARE, {props.user.name}</span>
     </div>
     :
     <div>
@@ -18,14 +18,14 @@ const NavBar = (props) => {
       <Link to='/signup' className='NavBar-Link'>SIGN UP</Link>
     </div>;
 
-    return (
-      <>
+  return (
+    <>
       <header className='header-footer'>MindFULL</header>
       <div className='NavBar'>
         {nav}
       </div>
-      </>
-    );
+    </>
+  );
 };
 
 export default NavBar;

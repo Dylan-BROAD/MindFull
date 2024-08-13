@@ -1,51 +1,52 @@
-const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET;
 
 module.exports = {
-  create,
-  login,
-  checkToken 
+    signup,
+    login
 };
 
+async function signup(req, res) {
+    const user = new User(req.body);
+    try {
+        await user.save();
+        const token = createJWT(user);
+        res.json({ token });
+    } catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
 
 async function login(req, res) {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) throw new Error("User not found");
-    const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) throw new Error("Incorrect password");
-    const token = createJWT(user);
-    if (!token) throw new Error("Token creation failed");
-    res.json(token);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json("Bad Credentials");
-  }
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) return res.status(401).json({ err: 'bad credentials' });
+        user.comparePassword(req.body.pw, (err, isMatch) => {
+          if (err) {
+              console.error('Password comparison error:', err);
+              return res.status(401).json({ err: 'Login error' });
+          }
+          if (isMatch) {
+              const token = createJWT(user);
+              res.json({ token });
+          } else {
+              return res.status(401).json({ err: 'bad credentials' });
+          }
+      });
+      
+    } catch (err) {
+        return res.status(401).json(err);
+    }
 }
 
-async function create(req, res) {
-  try {
-    const user = await User.create(req.body);
-    const token = createJWT(user);
-    res.json(token);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-}
 
-/*--- Helper Functions --*/
 
 function createJWT(user) {
   return jwt.sign(
-    // data payload
-    { user },
-    process.env.SECRET,
-    { expiresIn: '24h' }
+      { user }, // data payload
+      SECRET,
+      { expiresIn: '24h' }
   );
-}
-
-function checkToken(req, res) {
-  console.log('req.user', req.user);
-  res.json(req.exp);
 }

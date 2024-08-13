@@ -10,7 +10,7 @@ class EditPage extends Component {
         return (
             <>
                 <NavBar user={this.props.user} handleLogout={this.props.handleLogout} />
-                <MindfullForm user={this.props.user} editTitle={title} editJournal={journal} editGoals={goals} editSongName={songName} editMoodRating={moodRating} id={id} />
+                {/* <MindfullForm user={this.props.user} editTitle={title} editJournal={journal} editGoals={goals} editSongName={songName} editMoodRating={moodRating} id={id} /> */}
             </>
         )
     }
