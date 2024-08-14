@@ -8,7 +8,7 @@ const userSchema = new Schema({
     name: String,
     email: { type: String, required: true, lowercase: true, unique: true },
     password: String,
-    // notions: [notionSchema]
+    // mindfull: [mindfullSchema]
 }, {
     timestamps: true
 });
