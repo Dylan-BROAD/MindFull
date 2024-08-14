@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SignupForm from '../../components/SignupForm/SignupForm';
+import SignupForm from '../../components/SignupForm/SignupForm'
 
 const SignupPage = (props) => {
     const [message, setMessage] = useState('');
