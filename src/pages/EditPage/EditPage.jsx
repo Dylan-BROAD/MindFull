@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import MindfullForm from '../../components/Mindfull/MindfullForm';
 import { useLocation, useNavigate } from 'react-router-dom';

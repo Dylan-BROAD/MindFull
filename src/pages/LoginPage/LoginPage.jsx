@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import userService from '../../utilities/users-service';
 
@@ -26,6 +26,20 @@ export default function LoginPage({ handleSignupOrLogin }) {
       const errorMessage = err.message || 'Login failed due to network error';
       setError(errorMessage);
     }
+  }
+
+  function handleSpotifyLogin() {
+    const clientId = 'c77eb0411ae3492a8dbaf29ec8bdf249';
+    const redirectUri = 'http://localhost:3000/';
+    const scopes = [
+      'streaming',
+      'user-read-email',
+      'user-read-private',
+      'user-modify-playback-state',
+      'user-read-playback-state',
+    ];
+
+    window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
   }
 
   return (
@@ -69,6 +83,14 @@ export default function LoginPage({ handleSignupOrLogin }) {
             <Link to='/' className="text-blue-500 hover:text-blue-700">Cancel</Link>
           </div>
         </form>
+        <div className="text-center mt-4">
+          <button
+            onClick={handleSpotifyLogin}
+            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-200"
+          >
+            Log In with Spotify
+          </button>
+        </div>
       </div>
     </div>
   );

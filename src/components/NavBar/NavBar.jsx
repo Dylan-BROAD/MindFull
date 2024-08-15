@@ -8,7 +8,7 @@ const NavBar = (props) => {
           Your Journals
         </Link>
         <span className="text-gray-700 font-semibold">
-          Welcome to your safe space, {props.user.name}
+          Welcome to your safe space, {props.spotifyUser ? props.spotifyUser.display_name || props.spotifyUser.email : props.user.name}
         </span>
       </div>
       <Link

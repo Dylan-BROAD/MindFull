@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { create, update } from '../../services/mindfull-api';
 import Modal from '../Modal/Modal';
@@ -58,7 +58,7 @@ const MindfullForm = ({ user, id }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Title</label>
                     <input
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         type="text"
                         name="title"
                         onChange={handleChange}
@@ -68,7 +68,7 @@ const MindfullForm = ({ user, id }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Journal</label>
                     <textarea
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         name="journal"
                         onChange={handleChange}
                         value={journal}
@@ -78,7 +78,7 @@ const MindfullForm = ({ user, id }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Goals</label>
                     <input
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         type="text"
                         name="goals"
                         onChange={handleChange}
@@ -88,7 +88,7 @@ const MindfullForm = ({ user, id }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Song Name</label>
                     <input
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         type="text"
                         name="songName"
                         onChange={handleChange}
@@ -101,7 +101,7 @@ const MindfullForm = ({ user, id }) => {
                         name="moodRating"
                         value={moodRating}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                     >
                         {[...Array(10).keys()].map(i => (
                             <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -110,7 +110,7 @@ const MindfullForm = ({ user, id }) => {
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
                 >
                     Submit
                 </button>

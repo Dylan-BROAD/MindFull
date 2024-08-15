@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteOne } from '../../services/mindfull-api';
 
@@ -33,9 +32,11 @@ const Mindfull = ({ title, journal, goals, songName, moodRating, id, update }) =
                 </div>
                 <div className="mt-4">
                     <Link
+
+                        state={{ title, journal, goals, songName, moodRating, id }}
                         to={{
                             pathname: '/edit',
-                            state: { title, journal, goals, songName, moodRating, id }
+
                         }}
                         className="text-blue-500 hover:text-blue-700 font-medium"
                     >
