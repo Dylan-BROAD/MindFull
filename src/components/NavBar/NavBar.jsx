@@ -1,29 +1,53 @@
 import { Link } from 'react-router-dom';
-import '../../pages/App/App.css'
-import './NavBar.css'
-
 
 const NavBar = (props) => {
-  let nav = props.user ?
-    <div>
-      <Link className='mindfull-nav' to='/journals'>Your Journals</Link>
-      <Link to='/' onClick={props.handleLogout} className='NavBar-Link'>LOG OUT</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      <span className='NavBar-Welcome'>COME AS YOU ARE, {props.user.name}</span>
+  let nav = props.user ? (
+    <div className="flex items-center justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <Link className="text-blue-500 hover:text-blue-700 font-medium" to="/mindfull">
+          Your Journals
+        </Link>
+        <span className="text-gray-700 font-semibold">
+          Welcome to your safe space, {props.user.name}
+        </span>
+      </div>
+      <Link
+        to="/"
+        onClick={props.handleLogout}
+        className="text-red-500 hover:text-red-700 font-medium"
+      >
+        LOG OUT
+      </Link>
     </div>
-    :
-    <div>
-      <Link className='login-nav' to='/login'>LOG IN</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <Link to='/signup' className='NavBar-Link'>SIGN UP</Link>
-    </div>;
+  ) : (
+    <div className="flex items-center justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <Link className="text-blue-500 hover:text-blue-700 font-medium" to="/login">
+          LOG IN
+        </Link>
+        <span>|</span>
+        <Link className="text-green-500 hover:text-green-700 font-medium" to="/signup">
+          SIGN UP
+        </Link>
+      </div>
+    </div>
+  );
 
   return (
     <>
-      <header className='header-footer'>MindFULL</header>
-      <div className='NavBar'>
-        {nav}
-      </div>
+      <header className="bg-gray-800 text-white py-4">
+        <div className="container mx-auto">
+          <Link to="/" className="text-2xl font-bold">
+            MindFull
+          </Link>
+        </div>
+      </header>
+
+      <nav className="bg-gray-100 py-4 shadow-md">
+        <div className="container mx-auto flex justify-between items-center">
+          {nav}
+        </div>
+      </nav>
     </>
   );
 };

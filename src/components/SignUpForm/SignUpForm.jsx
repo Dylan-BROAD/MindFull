@@ -36,62 +36,59 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
     };
 
     return (
-        <div>
-            <header className="header-footer">SignUp</header>
-            <form className="form-horizontal" onSubmit={handleSubmit} >
+        <div className="max-w-md mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
+            <header className="text-2xl font-bold text-center mb-6">Sign Up</header>
+            <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Name"
-                            value={formData.name}
-                            name="name"
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        placeholder="Name"
+                        value={formData.name}
+                        name="name"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
-                            type="email"
-                            className="form-control"
-                            placeholder="Email"
-                            value={formData.email}
-                            name="email"
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <input
+                        type="email"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        placeholder="Email"
+                        value={formData.email}
+                        name="email"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Password"
-                            value={formData.password}
-                            name="password"
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <input
+                        type="password"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        placeholder="Password"
+                        value={formData.password}
+                        name="password"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
-                    <div className="col-sm-12">
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Confirm Password"
-                            value={formData.passwordConf}
-                            name="passwordConf"
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <input
+                        type="password"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        placeholder="Confirm Password"
+                        value={formData.passwordConf}
+                        name="passwordConf"
+                        onChange={handleChange}
+                    />
                 </div>
-                <div className="form-group">
-                    <div className="col-sm-12 text-center">
-                        <button className="btn btn-default" disabled={isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
-                        <Link to='/'>Cancel</Link>
-                    </div>
+                <div className="form-group text-center">
+                    <button
+                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                        disabled={isFormInvalid()}
+                    >
+                        Sign Up
+                    </button>
+                </div>
+                <div className="form-group text-center mt-4">
+                    <Link to='/' className="text-blue-500 hover:text-blue-700">Cancel</Link>
                 </div>
             </form>
         </div>

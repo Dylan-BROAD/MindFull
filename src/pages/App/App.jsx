@@ -9,6 +9,8 @@ import EditPage from '../EditPage/EditPage';
 import { useState } from 'react'
 
 
+
+
 const App = () => {
   const [user, setUser] = useState(null)
 
@@ -31,7 +33,7 @@ const App = () => {
         <Route path="/signup" element={<SignupPage handleSignupOrLogin={handleSignupOrLogin} />} />
         <Route path="/login" element={<LoginPage handleSignupOrLogin={handleSignupOrLogin} />} />
         <Route path="/Mindfull" element={<MindfullPage user={user} handleLogout={handleLogout} />} />
-        {/* <Route path="/edit" element={<EditPage location={window.location} user={user} handleLogout={handleLogout} />} /> */}
+        <Route path="/edit" element={<EditPage location={window.location} user={user} handleLogout={handleLogout} />} />
       </Routes>
     </div>
   );

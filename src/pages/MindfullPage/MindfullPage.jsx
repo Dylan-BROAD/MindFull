@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import Mindfull from '../../components/Mindfull/Mindfull';
 import { mindfullsPerUser } from '../../services/mindfull-api';
@@ -21,7 +21,7 @@ const MindfullPage = ({ user, handleLogout }) => {
     let collection;
     if (mindfullData) {
         collection = mindfullData.map((d) => (
-            <div key={d._id}>
+            <div key={d._id} className="bg-white p-6 rounded-lg shadow-md mb-6">
                 <Mindfull
                     title={d.title}
                     journal={d.journal}
@@ -36,10 +36,18 @@ const MindfullPage = ({ user, handleLogout }) => {
     }
 
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
             <NavBar user={user} handleLogout={handleLogout} />
-            {collection}
-        </>
+            <div className="flex-grow bg-gray-100 p-6">
+                <div className="container mx-auto">
+                    {collection ? (
+                        collection
+                    ) : (
+                        <p className="text-center text-gray-700">No journals found.</p>
+                    )}
+                </div>
+            </div>
+        </div>
     );
 };
 

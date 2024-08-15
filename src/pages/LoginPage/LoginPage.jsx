@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Icon, Input } from 'semantic-ui-react';
 import userService from '../../utilities/users-service';
-import './LoginPage.css';
 
 export default function LoginPage({ handleSignupOrLogin }) {
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    pw: ''
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -21,57 +19,57 @@ export default function LoginPage({ handleSignupOrLogin }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      const response = await userService.login(credentials);
-      console.log('Login Response:', response); // Log the successful response
+      await userService.login(credentials);
       handleSignupOrLogin(); // Call the parent function to update user state
       navigate('/');
     } catch (err) {
-      // Log the full error object
-      console.error('Login Error Details:', err);
       const errorMessage = err.message || 'Login failed due to network error';
       setError(errorMessage);
     }
   }
 
   return (
-    <div className="LoginPage">
-      <header className="header-footer">Log In</header>
-      <form className="form-horizontal" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <div className="col-sm-12">
-            <Input iconPosition='left' placeholder='Email'>
-              <input
-                type="email"
-                placeholder="Email"
-                value={credentials.email}
-                name="email"
-                onChange={handleChange}
-              />
-              <Icon name='at' />
-            </Input>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="col-sm-12">
-            <Input
-              type="password"
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              value={credentials.password}
-              name="password"
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url('/bg-image.jpg')` }}
+    >
+      <div className="max-w-md mx-auto bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
+        <header className="text-2xl font-bold text-center mb-6">Log In</header>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="email"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+              placeholder="Email"
+              value={credentials.email}
+              name="email"
               onChange={handleChange}
             />
           </div>
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <div className="form-group">
-          <div className="col-sm-12 text-center">
-            <button className="btn btn-default">Log In</button>&nbsp;&nbsp;&nbsp;
-            <Link to='/'>Cancel</Link>
+          <div className="form-group">
+            <input
+              type="password"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+              placeholder="Password"
+              value={credentials.pw}
+              name="pw"
+              onChange={handleChange}
+            />
           </div>
-        </div>
-      </form>
+          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+          <div className="form-group text-center mt-6">
+            <button
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              type="submit"
+            >
+              Log In
+            </button>
+          </div>
+          <div className="form-group text-center mt-4">
+            <Link to='/' className="text-blue-500 hover:text-blue-700">Cancel</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
