@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { deleteOne } from '../../services/mindfull-api';
+import { deleteOne } from '../../utilities/mindfull-api';
 
 const Mindfull = ({ title, journal, goals, songName, moodRating, id, update }) => {
 

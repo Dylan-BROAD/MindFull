@@ -1,63 +1,43 @@
-import tokenService from './token-service';
-const BASE_URL = '/api/users/';
+import * as usersAPI from './users-api';
 
-function signup(user) {
-    return fetch(BASE_URL + 'signup', {
-        method: 'POST',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify(user)
-    })
-        .then(res => {
-            if (res.ok) return res.json();
-            // Probably a duplicate email
-            throw new Error(`Email already taken + ${res.status} !`);
-        })
-        // Parameter destructuring!
-        .then(({ token }) => tokenService.setToken(token));
-    // The above could have been written as
-    //.then((token) => token.token);
+export async function signup(userData) {
+  const token = await usersAPI.signUp(userData);
+  localStorage.setItem('token', token);
+  return getUser();
 }
 
-function getUser() {
-    return tokenService.getUserFromToken();
+export function logout() {
+  localStorage.removeItem('token');
 }
 
-function logout() {
-    tokenService.removeToken();
+export function getToken() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    
+    // Check if the token has expired
+    if (payload.exp * 1000 < Date.now()) {
+      localStorage.removeItem('token');
+      return null;
+    }
+    
+    return token;
+  } catch (err) {
+    console.error("Invalid token:", err);
+    localStorage.removeItem('token');
+    return null;
+  }
 }
 
-function login(creds) {
-  return fetch(BASE_URL + 'login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(creds),
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-      
-        const errorData = await res.json();
-        const errorMessage = errorData.message || 'Login failed';
-        console.error('Login Error Response:', errorData); // Log the detailed error
-        throw new Error(errorMessage);
-      }
-      // Extract and return the response data
-      const data = await res.json();
-      return data;
-    })
-    .then(({ token }) => {
-      if (token) {
-        // Store the token using tokenService
-        tokenService.setToken(token);
-        return token;
-      } else {
-        throw new Error('No token received');
-      }
-    });
+export function getUser() {
+  const token = getToken();
+  return token ? JSON.parse(atob(token.split('.')[1])).user : null;
 }
 
-export default {
-    signup,
-    getUser,
-    logout,
-    login
-};
+export async function login(credentials) {
+  const token = await usersAPI.login(credentials);
+  localStorage.setItem("token", token);
+  return getUser();
+}

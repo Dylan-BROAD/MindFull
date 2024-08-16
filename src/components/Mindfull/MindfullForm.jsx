@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { create, update } from '../../services/mindfull-api';
+import { create, update } from '../../utilities/mindfull-api';
 import Modal from '../Modal/Modal';
 
 const MindfullForm = ({ user, id }) => {
@@ -26,16 +26,13 @@ const MindfullForm = ({ user, id }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { title, journal, goals, songName, moodRating } = formState;
-        const email = user.email;
 
         try {
             if (id) {
-                await update(title, journal, goals, songName, moodRating, email, id);
-                // Navigate to /mindfull after successful edit
+                await update({ title, journal, goals, songName, moodRating, email: user.email }, id);
                 navigate('/mindfull');
             } else {
-                const initialFetch = await create(title, journal, goals, songName, moodRating, email);
-                const fetchJSON = await initialFetch.json();
+                await create({ title, journal, goals, songName, moodRating, email: user.email });
                 setModalMessage('Thank you for your post');
                 setIsModalOpen(true);
             }

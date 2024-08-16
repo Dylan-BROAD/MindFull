@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import userService from '../../utilities/users-service';
+import { signup } from '../../utilities/users-service';
 
 const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
     const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await userService.signup(formData);
+            await signup(formData);
             handleSignupOrLogin();
             navigate('/'); // Navigate to the home page after signup
         } catch (err) {
@@ -42,7 +42,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
                 <div className="form-group">
                     <input
                         type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         placeholder="Name"
                         value={formData.name}
                         name="name"
@@ -52,7 +52,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
                 <div className="form-group">
                     <input
                         type="email"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         placeholder="Email"
                         value={formData.email}
                         name="email"
@@ -62,7 +62,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
                 <div className="form-group">
                     <input
                         type="password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         placeholder="Password"
                         value={formData.password}
                         name="password"
@@ -72,7 +72,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
                 <div className="form-group">
                     <input
                         type="password"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+                        className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
                         placeholder="Confirm Password"
                         value={formData.passwordConf}
                         name="passwordConf"
@@ -81,7 +81,7 @@ const SignupForm = ({ updateMessage, handleSignupOrLogin }) => {
                 </div>
                 <div className="form-group text-center">
                     <button
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
                         disabled={isFormInvalid()}
                     >
                         Sign Up

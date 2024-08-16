@@ -5,7 +5,7 @@ const NavBar = (props) => {
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center space-x-4">
         <Link className="text-blue-500 hover:text-blue-700 font-medium" to="/mindfull">
-          Your Journals
+          MindFulls
         </Link>
         <span className="text-gray-700 font-semibold">
           Welcome to your safe space, {props.user.name}

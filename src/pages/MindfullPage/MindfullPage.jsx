@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import Mindfull from '../../components/Mindfull/Mindfull';
-import { mindfullsPerUser } from '../../services/mindfull-api';
+import { mindfullsPerUser } from '../../utilities/mindfull-api';
 
 const MindfullPage = ({ user, handleLogout }) => {
     const [apiResponse, setApiResponse] = useState(null);

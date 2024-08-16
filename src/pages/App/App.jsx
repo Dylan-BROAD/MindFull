@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import userService from '../../utilities/users-service';
+import { getUser, logout } from '../../utilities/users-service';
 import HomePage from '../HomePage/HomePage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -14,7 +14,7 @@ const App = () => {
   const [currentTrack, setCurrentTrack] = useState(null);  // State to hold the current track info
 
   useEffect(() => {
-    const currentUser = userService.getUser();
+    const currentUser = getUser();
     if (currentUser) setUser(currentUser);
 
     const hash = window.location.hash;
@@ -30,11 +30,11 @@ const App = () => {
   }, []);
 
   const handleSignupOrLogin = () => {
-    setUser(userService.getUser());
+    setUser(getUser());
   };
 
   const handleLogout = () => {
-    userService.logout();
+    logout();
     setUser(null);
   };
 

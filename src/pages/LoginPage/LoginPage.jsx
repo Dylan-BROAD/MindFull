@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import userService from '../../utilities/users-service';
+import * as userService from '../../utilities/users-service';
 
 export default function LoginPage({ handleSignupOrLogin }) {
   const [credentials, setCredentials] = useState({
     email: '',
-    pw: ''
+    password: ''
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,12 +19,12 @@ export default function LoginPage({ handleSignupOrLogin }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      await userService.login(credentials);
+      await userService.login(credentials); // Now uses the updated login function with sendRequest
       handleSignupOrLogin(); // Call the parent function to update user state
-      navigate('/');
+      navigate('/'); // Redirect to the home page after successful login
     } catch (err) {
       const errorMessage = err.message || 'Login failed due to network error';
-      setError(errorMessage);
+      setError(errorMessage); // Display the error message
     }
   }
 
@@ -47,13 +47,13 @@ export default function LoginPage({ handleSignupOrLogin }) {
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url('/bg-image.jpg')` }}
     >
-      <div className="max-w-md mx-auto bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
+      <div className="max-w-md mx-auto bg-white bg-opacity-90 py-10 px-10 rounded-lg shadow-md">
         <header className="text-2xl font-bold text-center mb-6">Log In</header>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+              className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="Email"
               value={credentials.email}
               name="email"
@@ -63,10 +63,10 @@ export default function LoginPage({ handleSignupOrLogin }) {
           <div className="form-group">
             <input
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+              className="w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="Password"
-              value={credentials.pw}
-              name="pw"
+              value={credentials.password}
+              name="password"
               onChange={handleChange}
             />
           </div>
