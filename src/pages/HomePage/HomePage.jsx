@@ -35,7 +35,7 @@ const HomePage = (props) => {
         }
 
         const clientId = 'c77eb0411ae3492a8dbaf29ec8bdf249';
-        const redirectUri = 'http://localhost:3000/';
+        const redirectUri = 'https://mindfull-wagf.onrender.com';
         const scopes = [
             'streaming',
             'user-read-email',
