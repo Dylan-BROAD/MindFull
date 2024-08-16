@@ -31,6 +31,8 @@ const MindfullForm = ({ user, id }) => {
         try {
             if (id) {
                 await update(title, journal, goals, songName, moodRating, email, id);
+                // Navigate to /mindfull after successful edit
+                navigate('/mindfull');
             } else {
                 const initialFetch = await create(title, journal, goals, songName, moodRating, email);
                 const fetchJSON = await initialFetch.json();
@@ -47,7 +49,7 @@ const MindfullForm = ({ user, id }) => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        navigate('/mindfull'); // Optionally navigate to another page after closing the modal
+        navigate('/mindfull'); // Navigates to /mindfull after closing the modal
     };
 
     const { title, journal, goals, songName, moodRating } = formState;
@@ -55,6 +57,7 @@ const MindfullForm = ({ user, id }) => {
     return (
         <>
             <form className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
+                {/* Form fields for title, journal, goals, songName, moodRating */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">Title</label>
                     <input

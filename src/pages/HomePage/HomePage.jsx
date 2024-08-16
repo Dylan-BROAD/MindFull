@@ -59,9 +59,17 @@ const HomePage = (props) => {
     let homepage = spotifyUser ? (
         <div className="flex flex-col items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-80 shadow-md rounded-lg">
             <MindfullForm user={spotifyUser} />
-            <h1 className="text-3xl font-semibold mt-8 text-gray-800">
-                Hello, {spotifyUser.display_name || spotifyUser.email}!
-            </h1>
+            {props.currentTrack && (
+                <div className="text-center mt-4">
+                    <h2 className="text-xl font-bold">{props.currentTrack.name}</h2>
+                    <p className="text-gray-700">
+                        {props.currentTrack.artists.map(artist => artist.name).join(', ')}
+                    </p>
+                </div>
+            )}
+            <button onClick={props.playRandomSong} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">
+                Play Random Song
+            </button>
             <button
                 onClick={handleSpotifyLogout}
                 className="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-200"
@@ -72,7 +80,7 @@ const HomePage = (props) => {
     ) : (
         <div className="flex flex-col items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-80 shadow-md rounded-lg">
             <h1 className="text-3xl font-semibold text-gray-800 mb-4">Welcome to MindFull</h1>
-            <p className="text-lg text-gray-700 mb-8">Please link your spotify to access your journals and more.</p>
+            <p className="text-lg text-gray-700 mb-8">Please link your Spotify to access your journals and more.</p>
             <button
                 onClick={handleSpotifyLogin}
                 className="w-full max-w-xs bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-200"
@@ -88,7 +96,7 @@ const HomePage = (props) => {
             style={{ backgroundImage: `url('/bg-image.jpg')` }}
         >
             {/* Pass spotifyUser to NavBar */}
-            <NavBar user={spotifyUser || props.user} handleLogout={handleLogout} spotifyUser={spotifyUser} />
+            <NavBar user={props.user} handleLogout={handleLogout} spotifyUser={spotifyUser} />
             <div className="flex-grow flex items-center justify-center p-4">
                 <div className="w-full max-w-3xl space-y-8">
                     <div className="text-center">

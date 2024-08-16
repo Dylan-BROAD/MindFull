@@ -84,12 +84,7 @@ export default function LoginPage({ handleSignupOrLogin }) {
           </div>
         </form>
         <div className="text-center mt-4">
-          <button
-            onClick={handleSpotifyLogin}
-            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-200"
-          >
-            Log In with Spotify
-          </button>
+
         </div>
       </div>
     </div>
