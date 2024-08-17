@@ -19,6 +19,9 @@ https://github.com/Dylan-BROAD/MindFull
 Trello board:
 https://trello.com/b/uWVujCWY/mindfull
 
+Wireframe:
+https://www.figma.com/board/xphcFcQJ5nz5NIoYTicA25/MindFULL?node-id=0-1&t=Xfe0SA13q0gnpZro-0
+
 ERD:
 https://excalidraw.com/
 
