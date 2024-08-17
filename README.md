@@ -1,4 +1,4 @@
-# Tight THREADS - CRUD APPLICAITON
+# MindFull - React application
 
 The purpose of this project is to create a a REACT based CUD website based around using the spotify API. This website is a space for users to to write their thoughts, goals and mood rating for the day. The added feature is the ability to pull a random song from sotify to play in the background whilst you do so. 
 
